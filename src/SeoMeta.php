@@ -7,6 +7,7 @@ use Arcanedev\SeoHelper\Contracts\Entities\MiscTags as MiscTagsContract;
 use Arcanedev\SeoHelper\Contracts\Entities\Title as TitleContract;
 use Arcanedev\SeoHelper\Contracts\Entities\Webmasters as WebmastersContract;
 use Arcanedev\SeoHelper\Contracts\SeoMeta as SeoMetaContract;
+use Arcanedev\SeoHelper\Contracts\Entities\AlternateLanguages as AlternateContract;
 use Arcanedev\Support\Traits\Configurable;
 
 /**
@@ -76,6 +77,8 @@ class SeoMeta implements SeoMetaContract
      */
     protected $analytics;
 
+    protected $alternate;
+
     /* ------------------------------------------------------------------------------------------------
      |  Constructor
      | ------------------------------------------------------------------------------------------------
@@ -113,6 +116,9 @@ class SeoMeta implements SeoMetaContract
         );
         $this->analytics(
             new Entities\Analytics($this->getConfig('analytics', []))
+        );
+        $this->alternate(
+            new Entities\AlternateLanguages($this->getConfig('alternate', []))
         );
     }
 
@@ -185,6 +191,13 @@ class SeoMeta implements SeoMetaContract
     public function webmasters(WebmastersContract $webmasters)
     {
         $this->webmasters = $webmasters;
+
+        return $this;
+    }
+
+    public function alternate(AlternateContract $alternate)
+    {
+        $this->alternate = $alternate;
 
         return $this;
     }
@@ -361,6 +374,34 @@ class SeoMeta implements SeoMetaContract
     }
 
     /**
+     * @param $locale
+     * @param $url
+     * @return $this
+     */
+    public function addAlternateUrl($locale, $url)
+    {
+        $this->alternate->add($locale, $url);
+
+        return $this;
+    }
+
+    public function addAlternates(array $locales)
+    {
+        $this->alternate->addMany($locales);
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setSiteName($name)
+    {
+        $this->title->setSiteName($name);
+
+        return $this;
+    }
+
+    /**
      * Remove a meta from the meta collection by key.
      *
      * @param  string|array  $names
@@ -412,6 +453,7 @@ class SeoMeta implements SeoMetaContract
             $this->misc->render(),
             $this->webmasters->render(),
             $this->analytics->render(),
+            $this->alternate->render()
         ]));
     }
 

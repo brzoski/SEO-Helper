@@ -271,4 +271,11 @@ class SeoHelper implements SeoHelperContract
 
         return $this;
     }
+
+    public function setSiteName($siteName)
+    {
+        $this->meta()->setSiteName($siteName);
+
+        return $this;
+    }
 }

@@ -93,4 +93,29 @@ trait Seoable
     {
         return $this->seo()->setKeywords($keywords);
     }
+
+    /**
+     * @param $index
+     * @param $follow
+     * @return \Arcanedev\SeoHelper\Contracts\SeoMeta
+     */
+    public function addMeta($name, $content)
+    {
+        return $this->seoMeta()->addMeta($name, $content);
+    }
+
+    public function setUrl($url)
+    {
+        return $this->seoMeta()->setUrl($url);
+    }
+
+    public function addAlternateUrl($locale, $url)
+    {
+        return $this->seoMeta()->addAlternateUrl($locale, $url);
+    }
+
+    public function addAlternates(array $locales)
+    {
+        return $this->seoMeta()->addAlternates($locales);
+    }
 }

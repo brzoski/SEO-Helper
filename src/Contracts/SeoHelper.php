@@ -79,6 +79,17 @@ interface SeoHelper extends Renderable
      * @return self
      */
     public function setTitle($title, $siteName = null, $separator = null);
+
+    /**
+     * Set title.
+     *
+     * @param  string       $title
+     * @param  string|null  $siteName
+     * @param  string|null  $separator
+     *
+     * @return self
+     */
+    public function setSiteName($siteName);
     /**
      * Set description.
      *

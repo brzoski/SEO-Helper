@@ -268,7 +268,9 @@ class Title implements TitleContract
             ? $this->renderTitleFirst($separator)
             : $this->renderTitleLast($separator);
 
-        return '<title>' . $this->prepareTitleOutput($output) . '</title>';
+        $output    = Str::limit(strip_tags($output), $this->getMax());
+
+        return '<title>' . e($output) . '</title>';
     }
 
     /**
@@ -295,16 +297,6 @@ class Title implements TitleContract
      |  Check Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * Check if site name exists.
-     *
-     * @return bool
-     */
-    private function hasSiteName()
-    {
-        return ! empty($this->getSiteName());
-    }
-
     /**
      * Check title.
      *
@@ -391,16 +383,12 @@ class Title implements TitleContract
     }
 
     /**
-     * Prepare the title output.
+     * Check if site name exists.
      *
-     * @param  string  $output
-     *
-     * @return string
+     * @return bool
      */
-    private function prepareTitleOutput($output)
+    private function hasSiteName()
     {
-        return htmlspecialchars(
-            Str::limit(strip_tags($output), $this->getMax()), ENT_QUOTES, 'UTF-8', false
-        );
+        return ! empty($this->getSiteName());
     }
 }

@@ -183,4 +183,25 @@ interface SeoMeta extends Renderable
      * @return self
      */
     public function resetWebmasters();
+
+    /**
+     * Add language alternates
+     *
+     * @param $locale
+     * @param $url
+     * @return self
+     */
+    public function addAlternateUrl($locale, $url);
+
+    /**
+     * @param $locales
+     * @return mixed
+     */
+    public function addAlternates(array $locales);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function setSiteName($name);
 }
