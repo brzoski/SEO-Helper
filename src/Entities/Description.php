@@ -4,6 +4,7 @@ use Arcanedev\SeoHelper\Contracts\Entities\Description as DescriptionContract;
 use Arcanedev\SeoHelper\Exceptions\InvalidArgumentException;
 use Arcanedev\SeoHelper\Helpers\Meta;
 use Arcanedev\Support\Traits\Configurable;
+use Html2Text\Html2Text;
 
 /**
  * Class     Description
@@ -93,7 +94,7 @@ class Description implements DescriptionContract
      */
     public function set($content)
     {
-        $this->content = trim(strip_tags($content));
+        $this->content = Html2Text::convert($content);
 
         return $this;
     }

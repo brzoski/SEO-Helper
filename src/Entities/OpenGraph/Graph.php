@@ -2,6 +2,7 @@
 
 use Arcanedev\SeoHelper\Contracts\Entities\OpenGraph as OpenGraphContract;
 use Arcanedev\Support\Traits\Configurable;
+use Html2Text\Html2Text;
 
 /**
  * Class     Graph
@@ -109,6 +110,7 @@ class Graph implements OpenGraphContract
      */
     public function setDescription($description)
     {
+        $description = !$description ?: Html2Text::convert($description);
         return $this->addProperty('description', $description);
     }
 

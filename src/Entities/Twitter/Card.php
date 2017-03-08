@@ -3,6 +3,7 @@
 use Arcanedev\SeoHelper\Contracts\Entities\TwitterCard as CardContract;
 use Arcanedev\SeoHelper\Exceptions\InvalidTwitterCardException;
 use Arcanedev\Support\Traits\Configurable;
+use Html2Text\Html2Text;
 
 /**
  * Class     Card
@@ -148,6 +149,7 @@ class Card implements CardContract
      */
     public function setDescription($description)
     {
+        $description = !$description ?: Html2Text::convert($description);
         return $this->addMeta('description', $description);
     }
 
