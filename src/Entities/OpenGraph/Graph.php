@@ -110,7 +110,7 @@ class Graph implements OpenGraphContract
      */
     public function setDescription($description)
     {
-        $description = !$description ?: Html2Text::convert($description);
+        $description = !$description ?: Html2Text::convert(strip_tags($description));
         return $this->addProperty('description', $description);
     }
 

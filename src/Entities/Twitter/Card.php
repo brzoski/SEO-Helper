@@ -149,7 +149,7 @@ class Card implements CardContract
      */
     public function setDescription($description)
     {
-        $description = !$description ?: Html2Text::convert($description);
+        $description = !$description ?: Html2Text::convert(strip_tags($description));
         return $this->addMeta('description', $description);
     }
 
