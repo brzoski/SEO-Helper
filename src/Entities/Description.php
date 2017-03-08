@@ -94,7 +94,7 @@ class Description implements DescriptionContract
      */
     public function set($content)
     {
-        $content = !$content ?: Html2Text::convert(strip_tags($content));
+        $content = !$content ?: @Html2Text::convert(strip_tags($content));
         $this->content = $content;
 
         return $this;
