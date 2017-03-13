@@ -2,6 +2,7 @@
 
 use Arcanedev\SeoHelper\Contracts\Helpers\Meta as MetaContract;
 use Arcanedev\SeoHelper\Exceptions\InvalidArgumentException;
+use Html2Text\Html2Text;
 
 /**
  * Class     Meta
@@ -300,6 +301,7 @@ class Meta implements MetaContract
      */
     public function clean($value)
     {
+        $value = !$value ?: @Html2Text::convert($value);
         return strip_tags($value);
     }
 }
