@@ -300,6 +300,6 @@ class Meta implements MetaContract
      */
     public function clean($value)
     {
-        return htmlentities(strip_tags($value));
+        return strip_tags($value);
     }
 }
