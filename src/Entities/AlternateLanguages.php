@@ -9,11 +9,13 @@ class AlternateLanguages implements AlternateLanguagesContract
     use Configurable;
 
     protected $alternate;
+    protected $defaultLanguage;
 
     public function __construct(array $configs = [])
     {
         $this->setConfigs($configs);
         $this->alternate = new Collection();
+        $this->defaultLanguage = array_first(\LaravelLocalization::getSupportedLanguagesKeys());
     }
 
     public function add($locale, $url)
@@ -48,9 +50,11 @@ class AlternateLanguages implements AlternateLanguagesContract
         }
 
         $html = '';
+        $defaultUrl = \LaravelLocalization::getLocalizedURL();
+        $html .= "<link rel=\"alternate\" href=\"{$defaultUrl}\" hreflang=\"x-default\" />".PHP_EOL;
         foreach ($this->alternate->all() as $alternate)
         {
-            $html .= "<link rel=\"alternate\" hreflang=\"{$alternate['lang']}\" href=\"{$alternate['url']}\"/>";
+            $html .= "<link rel=\"alternate\" href=\"{$alternate['url']}\" hreflang=\"{$alternate['lang']}\" />";
             $html .= $this->alternate->last() == $alternate ? '' : PHP_EOL;
         }
         return $html;
