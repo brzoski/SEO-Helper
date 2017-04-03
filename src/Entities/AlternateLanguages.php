@@ -54,6 +54,7 @@ class AlternateLanguages implements AlternateLanguagesContract
         {
             if(\LaravelLocalization::getCurrentLocale()==$alternate['lang']) {
                 $html .= "<link rel=\"alternate\" href=\"{$alternate['url']}\" hreflang=\"x-default\" />".PHP_EOL;
+                continue;
             }
             $html .= "<link rel=\"alternate\" href=\"{$alternate['url']}\" hreflang=\"{$alternate['lang']}\" />";
             $html .= $this->alternate->last() == $alternate ? '' : PHP_EOL;
