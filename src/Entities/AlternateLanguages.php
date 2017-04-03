@@ -52,12 +52,14 @@ class AlternateLanguages implements AlternateLanguagesContract
         $html = '';
         foreach ($this->alternate->all() as $alternate)
         {
-            if(\LaravelLocalization::getCurrentLocale()==$alternate['lang']) {
-                $html .= "<link rel=\"alternate\" href=\"{$alternate['url']}\" hreflang=\"x-default\" />".PHP_EOL;
-                continue;
+            if($this->alternate->count()>1) {
+                if(array_first(\LaravelLocalization::getSupportedLanguagesKeys())==$alternate['lang']) {
+                    $html .= "<link rel=\"alternate\" href=\"{$alternate['url']}\" hreflang=\"x-default\" />".PHP_EOL;
+                    continue;
+                }
+                $html .= "<link rel=\"alternate\" href=\"{$alternate['url']}\" hreflang=\"{$alternate['lang']}\" />";
+                $html .= $this->alternate->last() == $alternate ? '' : PHP_EOL;
             }
-            $html .= "<link rel=\"alternate\" href=\"{$alternate['url']}\" hreflang=\"{$alternate['lang']}\" />";
-            $html .= $this->alternate->last() == $alternate ? '' : PHP_EOL;
         }
         return $html;
     }
