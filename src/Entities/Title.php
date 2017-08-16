@@ -354,7 +354,7 @@ class Title implements TitleContract
         $output[] = $this->getTitleOnly();
 
         if ($this->hasSiteName()) {
-            $output[] = $separator;
+            $output[] = ' | ';
             $output[] = $this->getSiteName();
         }
 
